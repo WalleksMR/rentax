@@ -1,8 +1,8 @@
-import { Category } from '../model/Category';
+import { Category } from '../../model/Category';
 import {
   ICategoriesRepository,
   ICreateCategoryDTO,
-} from './ICategoriesRepository';
+} from '../ICategoriesRepository';
 
 class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
@@ -30,10 +30,13 @@ class CategoriesRepository implements ICategoriesRepository {
     });
 
     this.categories.push(category);
+    console.log(this.categories);
+
     return category;
   }
 
   list(): Category[] {
+    console.log(this.categories);
     return this.categories;
   }
 
