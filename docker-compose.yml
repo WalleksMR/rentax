@@ -10,19 +10,18 @@ services:
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=ignite
-      - POSTGRES_DB=rentx_db
+      - POSTGRES_DB=rentxDB
     volumes:
       - pgdata:/data/postgres
-    network_mode: host
 
   app:
     build: .
     container_name: rentx
     ports:
-      - 3333:5432
+      - 3333:3333
     volumes:
       - .:/usr/app
-    network_mode: host
+
 
 volumes:
   pgdata:
