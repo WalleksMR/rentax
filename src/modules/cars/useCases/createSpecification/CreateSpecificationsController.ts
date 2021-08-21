@@ -1,17 +1,18 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
 import { CreateSpecificationsUseCase } from './CreateSpecificationsUseCase';
 
-class CreateSpecificationCrontoller {
-  constructor(
-    private createSpecificationsUseCase: CreateSpecificationsUseCase
-  ) {}
-
-  handle(request: Request, response: Response): Response {
+class CreateSpecificationsController {
+  async handle(request: Request, response: Response): Promise<Response> {
     try {
       const { name, description } = request.body;
 
-      const specification = this.createSpecificationsUseCase.execute({
+      const createSpecificationsUseCase = container.resolve(
+        CreateSpecificationsUseCase
+      );
+
+      const specification = await createSpecificationsUseCase.execute({
         name,
         description,
       });
@@ -23,4 +24,4 @@ class CreateSpecificationCrontoller {
   }
 }
 
-export { CreateSpecificationCrontoller };
+export { CreateSpecificationsController };

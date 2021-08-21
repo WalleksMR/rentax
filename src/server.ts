@@ -1,8 +1,11 @@
 import 'reflect-metadata';
 import express from 'express';
 
-import { routes } from './routes';
 import './database';
+
+import './shared/container';
+
+import { routes } from './routes';
 
 const port = 3333;
 const app = express();
