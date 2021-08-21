@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from 'uuid';
 @Entity('users')
 class User {
   @PrimaryColumn()
-  id?: string;
+  id: string;
 
   @Column()
   name: string;
@@ -30,6 +30,7 @@ class User {
   constructor() {
     if (!this.id) {
       this.id = uuidV4();
+      this.isAdmin = false;
     }
   }
 }

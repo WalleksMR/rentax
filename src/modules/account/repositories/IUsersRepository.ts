@@ -15,7 +15,7 @@ interface IUsersRepository {
     password,
     email,
     driver_license,
-  }: IUsersRepositoryDTO): Promise<void>;
+  }: IUsersRepositoryDTO): Promise<User>;
   list(): Promise<User[]>;
 }
 
