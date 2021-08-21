@@ -1,3 +1,5 @@
+import { User } from '../entities/User';
+
 interface IUsersRepositoryDTO {
   name: string;
   username: string;
