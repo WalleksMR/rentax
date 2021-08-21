@@ -5,8 +5,14 @@
   "username": "postgres",
   "password": "ignite",
   "database": "rentxdb",
+  "synchronize": true,
   "migrations": ["./src/database/migrations/*.ts"],
+  "entities": [
+    "src/modules/cars/entities/*.ts"
+ ],
   "cli": {
     "migrationsDir": "./src/database/migrations"
   }
+
+
 }
