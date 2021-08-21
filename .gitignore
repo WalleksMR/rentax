@@ -3,3 +3,4 @@ dist
 .env
 tmp/**
 !tmp/.gitkeep
+diagrama.png
