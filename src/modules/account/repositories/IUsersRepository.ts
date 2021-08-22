@@ -16,7 +16,10 @@ interface IUsersRepository {
     email,
     driver_license,
   }: IUsersRepositoryDTO): Promise<User>;
+
   list(): Promise<User[]>;
+
+  findByEmail(email: string): Promise<User>;
 }
 
 export { IUsersRepository, IUsersRepositoryDTO };
