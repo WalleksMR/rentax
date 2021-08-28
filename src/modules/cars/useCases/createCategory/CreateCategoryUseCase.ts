@@ -1,3 +1,4 @@
+import { AppError } from '../../../../errors/AppError';
 import { Category } from '../../entities/Category';
 import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
 
@@ -18,7 +19,7 @@ class CreateCategoryUseCase {
     );
 
     if (categoryalreadyExists) {
-      throw new Error('Category already exists');
+      throw new AppError('Category already exists');
     }
 
     const category = await this.categoriesRepository.create({
