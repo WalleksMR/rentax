@@ -2,6 +2,7 @@ import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
+import { AppError } from '../../../../errors/AppError';
 import { UsersRepository } from '../../repositories/implementations/UsersRepository';
 
 interface IAuthenticateDTO {
@@ -28,12 +29,12 @@ class CreateAuthenticateUseCase {
     // Verify if exist user
     const user = await this.usersRepository.findByEmail(email);
     if (!user) {
-      throw new Error('Email or password incorrect');
+      throw new AppError('Email or password incorrect');
     }
     // Verify if password is correct
     const passwordVerify = await compare(password, user.password);
     if (!passwordVerify) {
-      throw new Error('Email or password incorrect');
+      throw new AppError('Email or password incorrect');
     }
 
     // Generate token
