@@ -2,18 +2,18 @@
   "type": "postgres",
   "host": "localhost",
   "port": 5432,
-  "username": "postgres",
+  "username": "docker",
   "password": "ignite",
   "database": "rentxdb",
   "synchronize": true,
-  "migrations": ["./src/database/migrations/*.ts"],
+  "migrations": [
+    "./src/database/migrations/*.ts"
+  ],
   "entities": [
     "src/modules/cars/entities/*.ts",
     "src/modules/account/entities/*.ts"
- ],
+  ],
   "cli": {
     "migrationsDir": "./src/database/migrations"
   }
-
-
 }
