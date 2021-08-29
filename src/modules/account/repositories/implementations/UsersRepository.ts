@@ -12,14 +12,12 @@ class UsersRepository implements IUsersRepository {
 
   async create({
     name,
-    username,
     password,
     email,
     driver_license,
   }: IUsersRepositoryDTO): Promise<User> {
     const user = this.repository.create({
       name,
-      username,
       password,
       email,
       driver_license,
