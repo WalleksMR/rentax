@@ -42,6 +42,7 @@ class CreateAuthenticateUseCase {
       name: user.name,
       email: user.email,
     };
+
     const token = sign({}, 'ignite', {
       subject: user.id,
       expiresIn: '1d',
