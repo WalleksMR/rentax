@@ -7,7 +7,6 @@ import { IUsersRepository } from '../../repositories/IUsersRepository';
 
 interface IUsersRequest {
   name: string;
-  username: string;
   password: string;
   email: string;
   driver_license: string;
@@ -21,7 +20,6 @@ class CreateUserUseCase {
 
   async execute({
     name,
-    username,
     password,
     email,
     driver_license,
@@ -31,10 +29,10 @@ class CreateUserUseCase {
     if (userEmailExists) {
       throw new AppError('Email already exists');
     }
+
     const passwordHash = await hash(password, 8);
     const user = await this.usersRepository.create({
       name,
-      username,
       password: passwordHash,
       email,
       driver_license,
