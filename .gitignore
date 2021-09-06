@@ -2,5 +2,7 @@ node_modules
 dist
 .env
 tmp/**
-!tmp/.gitkeep
+!tmp/
+!tmp/avatar/
+!tmp/avatar/exemple.ts
 diagrama.png
