@@ -1,9 +1,11 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
-import { v4 as uuidV4 } from 'uuid';
 
 @Entity('users')
 class User {
-  @PrimaryColumn()
+  @PrimaryColumn({
+    unique: true,
+    generated: 'uuid',
+  })
   id: string;
 
   @Column()
@@ -18,17 +20,17 @@ class User {
   @Column()
   driver_license: string;
 
-  @Column()
+  @Column({
+    default: false,
+  })
   isAdmin: boolean;
+
+  @Column({
+    nullable: true,
+  })
+  avatar: string;
 
   @CreateDateColumn()
   created_at: Date;
-
-  constructor() {
-    if (!this.id) {
-      this.id = uuidV4();
-      this.isAdmin = false;
-    }
-  }
 }
 export { User };
