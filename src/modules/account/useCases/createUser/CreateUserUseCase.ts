@@ -1,9 +1,9 @@
 import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
 
-import { AppError } from '../../../../errors/AppError';
-import { User } from '../../entities/User';
-import { IUsersRepository } from '../../repositories/IUsersRepository';
+import { AppError } from '@errors/AppError';
+import { User } from '@modules/account/entities/User';
+import { IUsersRepository } from '@modules/account/repositories/IUsersRepository';
 
 interface IUsersRequest {
   name: string;
