@@ -1,13 +1,5 @@
+import { ICreateUserDTO } from '../dto/ICreateUserDTO';
 import { User } from '../entities/User';
-
-interface IUsersRepositoryDTO {
-  id?: string;
-  name: string;
-  password: string;
-  email: string;
-  driver_license: string;
-  avatar?: string;
-}
 
 interface IUsersRepository {
   create({
@@ -17,10 +9,10 @@ interface IUsersRepository {
     email,
     driver_license,
     avatar,
-  }: IUsersRepositoryDTO): Promise<User>;
+  }: ICreateUserDTO): Promise<User>;
   list(): Promise<User[]>;
   findByEmail(email: string): Promise<User>;
   findById(id: string): Promise<User>;
 }
 
-export { IUsersRepository, IUsersRepositoryDTO };
+export { IUsersRepository };
