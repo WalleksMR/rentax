@@ -7,13 +7,13 @@
   "database": "rentxdb",
   "synchronize": true,
   "migrations": [
-    "./src/database/migrations/*.ts"
+    "./src/shared/infra/typeorm/migrations/*.ts"
   ],
   "entities": [
-    "src/modules/cars/entities/*.ts",
-    "src/modules/account/entities/*.ts"
+    "src/modules/cars/infra/typeorm/entities/*.ts",
+    "src/modules/account/infra/typeorm/entities/*.ts"
   ],
   "cli": {
-    "migrationsDir": "./src/database/migrations"
+    "migrationsDir": "./src/shared/infra/typeorm/migrations"
   }
 }

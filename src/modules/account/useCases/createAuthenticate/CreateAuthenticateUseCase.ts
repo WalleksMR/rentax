@@ -1,8 +1,9 @@
-import { AppError } from '@errors/AppError';
-import { IUsersRepository } from '@modules/account/repositories/IUsersRepository';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
+
+import { IUsersRepository } from '@modules/account/repositories/IUsersRepository';
+import { AppError } from '@shared/errors/AppError';
 
 interface IAuthenticateDTO {
   email: string;

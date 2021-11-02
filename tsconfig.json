@@ -9,8 +9,6 @@
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"],
-      "@errors/*": ["errors/*"],
-      "@middlewares/*": ["middlewares/*"]
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,
