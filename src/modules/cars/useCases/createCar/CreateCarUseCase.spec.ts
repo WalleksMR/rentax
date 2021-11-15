@@ -23,4 +23,28 @@ describe('Create Car', () => {
       category_id: 'asdasd-asdasdk-asdasd',
     });
   });
+
+  it('should not be able create a new car with the same license plate', () => {
+    expect(async () => {
+      await createCarUseCase.execute({
+        name: 'Car 02',
+        description: 'Car 02 description',
+        brand: 'Brand Car 02',
+        daily_rate: 122,
+        fine_amount: 11111,
+        license_plate: 'ABB-CCC',
+        category_id: 'asdasd-asdasdk-asdasd',
+      });
+
+      await createCarUseCase.execute({
+        name: 'Car 03',
+        description: 'Car 03 description',
+        brand: 'Brand Car 03',
+        daily_rate: 122,
+        fine_amount: 11111,
+        license_plate: 'ABB-CCC',
+        category_id: 'asdasd-asdasdk-asdasd',
+      });
+    }).rejects.toBeInstanceOf(AppError);
+  });
 });
