@@ -1,9 +1,9 @@
 import { ICreateCarDTO } from '@modules/cars/dto/ICreateCarDTO';
 import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 
-import { ICarRepository } from '../ICarRepository';
+import { ICarsRepository } from '../ICarsRepository';
 
-class CarsRepositoryInMemory implements ICarRepository {
+class CarsRepositoryInMemory implements ICarsRepository {
   cars: Car[] = [];
 
   async create({
