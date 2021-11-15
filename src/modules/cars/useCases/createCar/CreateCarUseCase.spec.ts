@@ -47,4 +47,19 @@ describe('Create Car', () => {
       });
     }).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should be able to create a new car with available true by default value', async () => {
+    const car = await createCarUseCase.execute({
+      name: 'Car 05 available',
+      description: 'Car 05 description',
+      brand: 'Brand Car 05',
+      daily_rate: 122,
+      fine_amount: 11111,
+      license_plate: 'ABB-CCCAD',
+      category_id: 'asdasd-asdasdk-asdasd',
+    });
+    console.log(car);
+
+    expect(car.available).toEqual(true);
+  });
 });
