@@ -11,7 +11,7 @@
 **RN**
   - [x] Nao deve ser possivel cadastrar um carro com a placa ja existente.
   - [x] O carro deve ser cadastrado com disponibilidade por padrao.
-  - O usuarios responsavel pelo cadastro deve ser um usuario administrador.
+  - [x] O usuarios responsavel pelo cadastro deve ser um usuario administrador.
 
 # Listagem de carros
 **RF**
