@@ -58,7 +58,6 @@ describe('Create Car', () => {
       license_plate: 'ABB-CCCAD',
       category_id: 'asdasd-asdasdk-asdasd',
     });
-    console.log(car);
 
     expect(car.available).toEqual(true);
   });
