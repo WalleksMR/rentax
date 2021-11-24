@@ -38,4 +38,32 @@ describe('List Car', () => {
 
     expect(all).toEqual(all);
   });
+
+  it('Should be able list all cars with available value true and by name', async () => {
+    await carsRepositoryInMemory.create({
+      name: 'Car 03',
+      description: 'Car 03 description',
+      brand: 'Brand Car 03',
+      daily_rate: 1222,
+      fine_amount: 11111,
+      license_plate: 'ABB-CCCDDF',
+      category_id: 'asdasd-asdasdk-asdasd',
+    });
+
+    const carName = await carsRepositoryInMemory.create({
+      name: 'Car 04',
+      description: 'Car 04 description',
+      brand: 'Brand Car 04',
+      daily_rate: 122,
+      fine_amount: 11111,
+      license_plate: 'ABB-CCFFCD',
+      category_id: 'asdasd-asdasdk-asdasd',
+    });
+
+    const listByName = await listAvailableCarsUseCase.execute({
+      name: 'Car 04',
+    });
+
+    expect(listByName).toEqual([carName]);
+  });
 });
