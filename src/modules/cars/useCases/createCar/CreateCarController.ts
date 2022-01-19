@@ -15,21 +15,18 @@ class CreateCarController {
       category_id,
     } = request.body;
     const createCarUseCase = container.resolve(CreateCarUseCase);
-    try {
-      const car = await createCarUseCase.execute({
-        name,
-        description,
-        brand,
-        daily_rate,
-        fine_amount,
-        license_plate,
-        category_id,
-      });
 
-      return response.status(201).json(car);
-    } catch (e) {
-      return response.status(400).json({ error: e });
-    }
+    const car = await createCarUseCase.execute({
+      name,
+      description,
+      brand,
+      daily_rate,
+      fine_amount,
+      license_plate,
+      category_id,
+    });
+
+    return response.status(201).json(car);
   }
 }
 export { CreateCarController };
