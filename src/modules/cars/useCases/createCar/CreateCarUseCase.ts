@@ -3,13 +3,17 @@ import { inject, injectable } from 'tsyringe';
 import { ICreateCarDTO } from '@modules/cars/dto/ICreateCarDTO';
 import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
+import { ICategoriesRepository } from '@modules/cars/repositories/ICategoriesRepository';
 import { AppError } from '@shared/errors/AppError';
 
 @injectable()
 class CreateCarUseCase {
   constructor(
     @inject('CarsRepository')
-    private carsRepository: ICarsRepository
+    private carsRepository: ICarsRepository,
+
+    @inject('CategoriesRepository')
+    private categoriesRepository: ICategoriesRepository
   ) {}
 
   async execute({
@@ -25,6 +29,12 @@ class CreateCarUseCase {
       license_plate
     );
 
+    const categoryNotExists = await this.categoriesRepository.findById(
+      category_id
+    );
+    if (!categoryNotExists) {
+      throw new AppError('Category not exists');
+    }
     if (carAlreadyExists) {
       throw new AppError('Car already exists');
     }
