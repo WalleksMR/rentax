@@ -29,8 +29,9 @@ class UsersRepository implements IUsersRepository {
     });
 
     await this.repository.save(user);
-
-    return user;
+    const newUser = user;
+    delete newUser.password;
+    return newUser;
   }
 
   async list(): Promise<User[]> {
