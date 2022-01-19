@@ -29,8 +29,8 @@ $ npm install
 
 ### Configuration
 
-Make sure to setup your .env file. See [./env.example](.env.example), and config the file `docker-compose.yml`
-inside [./docker-compose.yml](docker-compose.yml), configuration just the `environment` of image `postgres`.
+Make sure to setup your .env file. See [env.example](.env.example), and config the file `docker-compose.yml`
+inside [docker-compose.yml](./docker-compose.yml), configuration just the `environment` of image `postgres`.
 
 Now just run `docker-compose up` to create the images and containers.
 
@@ -50,7 +50,7 @@ $ yarn run typeorm:migrate CreatePostsTable
 
 ## Functional Requirement
 
-In software engineering and system engineering, a functional requirement defines a function of a system or its component, where a function is defcribed as a specification of behavior between inputs and outputs. [./FuncionalRequirement.md](FuncionalRequirement)
+In software engineering and system engineering, a functional requirement defines a function of a system or its component, where a function is defcribed as a specification of behavior between inputs and outputs. [FuncionalRequirement](./FuncionalRequirement.md)
 
 # Packages we <3
 
