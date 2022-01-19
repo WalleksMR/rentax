@@ -28,6 +28,11 @@ class CategoriesRepository implements ICategoriesRepository {
     const category = await this.repository.findOne({ name });
     return category;
   }
+
+  async findById(id: string): Promise<Category> {
+    const category = await this.repository.findOne({ id });
+    return category;
+  }
 }
 
 export { CategoriesRepository };
