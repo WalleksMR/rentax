@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
@@ -31,5 +32,5 @@ app.use(
 );
 
 app.listen(port, () => {
-  console.log(`Server is running`);
+  console.log(`Server is running on port 3333`);
 });
