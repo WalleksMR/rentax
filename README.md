@@ -1,57 +1,65 @@
+<h1 align="center">
+    <img alt="Rentx" src="./rentxLogo.png" />
+    <br>
+    Rentx Application Starter with Express and Postgres
+</h1>
 
- **RF** => Requisitos funcionais\
- **RNF** => Requisitos nao funcionais\
- **RN** => Regra de negocio
+<h4 align="center">
+  A app backend to rental of the cars.
+</h4>
+<p align="center">
+  <img alt="GitHub top language" src="https://img.shields.io/badge/TypeScript-99.7%25-blue">
+  </a>
+</p>
 
+Start with [Express](https://github.com/expressjs/express), a framework for NodeJS.
 
- # Cadastro de carro
- **RF**
-  - [x] Deve ser possivel cadastrar um novo carro.
+## Installation
 
-**RN**
-  - [x] Nao deve ser possivel cadastrar um carro com a placa ja existente.
-  - [x] O carro deve ser cadastrado com disponibilidade por padrao.
-  - [x] O usuarios responsavel pelo cadastro deve ser um usuario administrador.
+We use **yarn** by default, but if you want, you can use **npm**, just make sure to delete `yarn.lock`, then run `npm install`, and you will need of the Docker installed in your machine.
 
-# Listagem de carros
-**RF**
-  - Deve ser possivel listar todos os carros disponiveis.
-  - Deve ser possivel listar todos os carros disponiveis pelo nome da categoria.
-  - Deve ser possivel listar todos os carros disponiveis pelo nome da marca.
-  - Deve ser possivel listar todos os carros disponiveis pelo nome do carro.
+```bash
+$ yarn install
 
-**RN**
-  - O usuario nao precisa esta logado no sistema.
+# if changing to npm
+$ npm install
+```
 
-# Cadastro de especificacao no carro
-**RF**
-  - Deve ser possivel cadastrar uma especificacao para um carro.
-  - Deve ser possivel listar todas as especificacao.
-  - Deve ser possivel listar todos os carros.
+## Running the app
 
-**RN**
-  - Nao deve ser possivel cadastrar uma especificacao para um carro nao cadastrado.
-  - Nao deve ser possivel cadastrar uma especificacao ja existente para o mesmo carro.
-  - O usuario responsavel pelo cadastro deve ser um usuario administrador.
+### Configuration
 
-# Cadastro de imagens do carro
-**RF**
-  - Deve ser possivel cadastrar a imagem do carro.
-  - Deve ser possivel listar todos os carros.
+Make sure to setup your .env file. See [./env.example](.env.example), and config the file `docker-compose.yml`
+inside [./docker-compose.yml](docker-compose.yml), configuration just the `environment` of image `postgres`.
 
-**RNF**
-  - Utilizar o multer para upload dos arquivos.
+Now just run `docker-compose up` to create the images and containers.
 
-**RN**
-  - O usuario deve poder cadastrar mais de uma imagem para o mesmo carro.
-  - O usuario responsavel pelo cadastro deve ser um usuario administrador.
+### Database migration
 
-# Aluguel de carro
+You need to run migrations, there you can see an example. After config, just run `yarn run typeorm:run`, and the [existing migrations](src/shared/infra/typeorm/migrations) will be executed.
 
-**RF**
-  - Deve ser possivel cadastrar um aluguel.
+## Development
 
-**RN**
-  - O aluguel deve ter duracao minima de 24 hora.
-  - Nao deve ser possivel cadastrar um novo aluguel caso ja exista um aberto para o mesmo usuario.
-  - Nao deve ser possivel cadastrar um novo aluguel caso ja exista um aberto para o mesmo carro.
+Make changes to the code in watch mode, and see them take effect right away. Any changes you make to database entities, either are they adding, changing, removing fields, relations or other entities, you're able to automatically create the migrations using `yarn run typeorm:migrate <MigrationName>` script.
+
+**Example**:
+
+```bash
+$ yarn run typeorm:migrate CreatePostsTable
+```
+
+## Functional Requirement
+
+In software engineering and system engineering, a functional requirement defines a function of a system or its component, where a function is defcribed as a specification of behavior between inputs and outputs. [./FuncionalRequirement.md](FuncionalRequirement)
+
+# Packages we <3
+
+- [express](https://github.com/expressjs/express)
+- [typeorm](https://github.com/typeorm/typeorm)
+- [bcryptjs](https://github.com/dcodeIO/bcrypt.js)
+- [csv-parse](https://github.com/adaltas/node-csv)
+- [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
+- [multer](https://github.com/expressjs/multer)
+- [dotenv](https://github.com/motdotla/dotenv)
+- [tsyringe](https://github.com/Microsoft/tsyringe)
+- [typescript](https://github.com/microsoft/TypeScript)
