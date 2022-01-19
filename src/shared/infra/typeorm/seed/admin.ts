@@ -1,5 +1,4 @@
 import { hash } from 'bcrypt';
-import { getConnection } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
 import createConnection from '../index';
