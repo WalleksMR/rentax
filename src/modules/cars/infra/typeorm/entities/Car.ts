@@ -48,9 +48,14 @@ class Car {
 
   @ManyToMany(() => Specification)
   @JoinTable({
+    // Name of table created to foreing Key
     name: 'specifications_cars',
-    joinColumns: [{ name: 'car_id' }], // Column of the table 'specifications_car' that belongs the this class 'cars'. [exemple: What's the column of the table specification_cars that belongs the column of the cars? Is car_id of the table specifications_id]
-    inverseJoinColumns: [{ name: 'specification_id' }], // Column of the 'specifications_cars' that belongs the class 'specifications',
+    joinColumns: [{ name: 'car_id' }],
+    // Column of the table 'specifications_car' that belongs id the this class 'cars'.
+    // [exemple: What's the column of the table specification_cars that belongs the column of
+    // the cars? Is car_id of the table specifications_id]
+    inverseJoinColumns: [{ name: 'specification_id' }],
+    // Column of the 'specifications_cars' that belongs the class 'specifications',
   })
   specifications: Specification[];
 
