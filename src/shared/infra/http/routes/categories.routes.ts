@@ -17,7 +17,7 @@ categoriesRouter.get('/', (request, response) => {
 });
 
 categoriesRouter.post(
-  '/import',
+  '/imports',
   upload.single('file'),
   importCategoryController.handle
 );
