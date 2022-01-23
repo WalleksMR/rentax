@@ -10,6 +10,7 @@ export default {
   entities: [
     'src/modules/cars/infra/typeorm/entities/*.ts',
     'src/modules/account/infra/typeorm/entities/*.ts',
+    'src/modules/rentals/infra/typeorm/entities/*.ts',
   ],
   cli: {
     migrationsDir: './src/shared/infra/typeorm/migrations',
