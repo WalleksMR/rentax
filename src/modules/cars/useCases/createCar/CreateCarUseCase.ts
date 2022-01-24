@@ -32,11 +32,13 @@ class CreateCarUseCase {
     const categoryNotExists = await this.categoriesRepository.findById(
       category_id
     );
-    if (!categoryNotExists) {
-      throw new AppError('Category not exists');
-    }
+
     if (carAlreadyExists) {
       throw new AppError('Car already exists');
+    }
+
+    if (!categoryNotExists) {
+      throw new AppError('Category not exists');
     }
 
     const car = await this.carsRepository.create({
