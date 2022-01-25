@@ -6,12 +6,8 @@ export default {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   synchronize: true,
-  migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
-  entities: [
-    'src/modules/cars/infra/typeorm/entities/*.ts',
-    'src/modules/account/infra/typeorm/entities/*.ts',
-    'src/modules/rentals/infra/typeorm/entities/*.ts',
-  ],
+  migrations: ['./src/shared/**/migrations/*.ts'],
+  entities: ['src/modules/**/entities/*.ts'],
   cli: {
     migrationsDir: './src/shared/infra/typeorm/migrations',
   },
