@@ -8,6 +8,7 @@
     "airbnb-base",
     "plugin:@typescript-eslint/recommended",
     "prettier",
+    "prettier/pretiier",
     "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -18,7 +19,7 @@
   "plugins": ["@typescript-eslint", "eslint-plugin-import-helpers", "prettier"],
   "rules": {
     "camelcase": "off",
-    "prettier/prettier": ["error", {"endOfLine": "auto"}],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "import/no-unresolved": "error",
     "@typescript-eslint/naming-convention": [
       "error",
