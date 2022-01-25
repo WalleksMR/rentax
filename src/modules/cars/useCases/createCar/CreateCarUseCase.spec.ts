@@ -1,4 +1,6 @@
+import { Category } from '@modules/cars/infra/typeorm/entities/Category';
 import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
+import { CreateRepositoryInMemory } from '@modules/cars/repositories/in-memory/CreateRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
 import { CreateCarUseCase } from './CreateCarUseCase';
@@ -6,10 +8,21 @@ import { CreateCarUseCase } from './CreateCarUseCase';
 describe('Create Car', () => {
   let createCarUseCase: CreateCarUseCase;
   let carsRepositoryInMemory: CarsRepositoryInMemory;
+  let categoryInMemory: CreateRepositoryInMemory;
+  let category: Category;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     carsRepositoryInMemory = new CarsRepositoryInMemory();
-    createCarUseCase = new CreateCarUseCase(carsRepositoryInMemory);
+    categoryInMemory = new CreateRepositoryInMemory();
+    createCarUseCase = new CreateCarUseCase(
+      carsRepositoryInMemory,
+      categoryInMemory
+    );
+
+    category = await categoryInMemory.create({
+      name: 'SUV',
+      description: 'Top SUV',
+    });
   });
 
   it('should be able create a new car', async () => {
@@ -20,8 +33,22 @@ describe('Create Car', () => {
       daily_rate: 122,
       fine_amount: 11111,
       license_plate: 'ABB-CCCD',
-      category_id: 'asdasd-asdasdk-asdasd',
+      category_id: category.id,
     });
+  });
+
+  it('should not be able create a new car without a category valid', () => {
+    expect(async () => {
+      await createCarUseCase.execute({
+        name: 'Car 01',
+        description: 'Car 01 description',
+        brand: 'Brand Car 01',
+        daily_rate: 122,
+        fine_amount: 11111,
+        license_plate: 'ABB-CCCD',
+        category_id: 'Category-Invalid',
+      });
+    }).rejects.toBeInstanceOf(AppError);
   });
 
   it('should not be able create a new car with the same license plate', () => {
@@ -33,7 +60,7 @@ describe('Create Car', () => {
         daily_rate: 122,
         fine_amount: 11111,
         license_plate: 'ABB-CCC',
-        category_id: 'asdasd-asdasdk-asdasd',
+        category_id: category.id,
       });
 
       await createCarUseCase.execute({
@@ -43,7 +70,7 @@ describe('Create Car', () => {
         daily_rate: 122,
         fine_amount: 11111,
         license_plate: 'ABB-CCC',
-        category_id: 'asdasd-asdasdk-asdasd',
+        category_id: category.id,
       });
     }).rejects.toBeInstanceOf(AppError);
   });
@@ -56,7 +83,7 @@ describe('Create Car', () => {
       daily_rate: 122,
       fine_amount: 11111,
       license_plate: 'ABB-CCCAD',
-      category_id: 'asdasd-asdasdk-asdasd',
+      category_id: category.id,
     });
 
     expect(car.available).toEqual(true);
