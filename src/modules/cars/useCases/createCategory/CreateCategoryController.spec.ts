@@ -10,7 +10,6 @@ describe('Create Category Controller', () => {
   let connection: Connection;
   beforeAll(async () => {
     connection = await createConnection();
-    await connection.dropDatabase();
     await connection.runMigrations();
 
     const id = uuidV4();
@@ -42,5 +41,22 @@ describe('Create Category Controller', () => {
       })
       .set({ Authorization: 'Bearer ' + token });
     expect(resposne.status).toBe(201);
+  });
+
+  it('should not be able to create a new category with same name exits', async () => {
+    const responseSession = await request(app).post('/sessions').send({
+      email: 'admin@admin.com',
+      password: 'admin',
+    });
+    const { token } = responseSession.body;
+
+    const resposne = await request(app)
+      .post(`/categories`)
+      .send({
+        name: 'Onix supertest',
+        description: 'Description Onix Supertest',
+      })
+      .set({ Authorization: 'Bearer ' + token });
+    expect(resposne.status).toBe(400);
   });
 });
