@@ -5,7 +5,7 @@
   "username": "docker",
   "password": "ignite",
   "database": "rentxdb",
-  "synchronize": true,
+  "synchronize": false,
   "migrations": [
     "./src/shared/infra/typeorm/migrations/*.ts"
   ],
