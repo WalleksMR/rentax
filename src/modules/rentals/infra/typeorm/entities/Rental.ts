@@ -31,7 +31,7 @@ class Rental {
   @Column({ nullable: true })
   end_date: Date;
 
-  @Column({ type: 'date' })
+  @Column()
   expected_return_date: Date;
 
   @Column({ nullable: true })
