@@ -3,11 +3,16 @@ import { Rental } from '@modules/rentals/infra/typeorm/entities/Rental';
 import { IRentalsRepository } from '@modules/rentals/repositories/IRentalsRepository';
 import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider';
 import { AppError } from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export class DevolutionRentalUseCase {
   constructor(
+    @inject('CarsRepository')
     private carsRepository: ICarsRepository,
+    @inject('RentalsRepository')
     private rentalsRepository: IRentalsRepository,
+    @inject('DayjsDateProvider')
     private dateProvider: IDateProvider
   ) {}
 
@@ -16,6 +21,9 @@ export class DevolutionRentalUseCase {
     const rental = await this.rentalsRepository.findById(id);
     if (!rental) {
       throw new AppError('Rental does not exists');
+    }
+    if (rental.end_date) {
+      throw new AppError('Rental finished');
     }
     const car = await this.carsRepository.findById(rental.car_id);
 
@@ -45,8 +53,10 @@ export class DevolutionRentalUseCase {
 
     rental.total = totalRental;
     rental.end_date = dateNow;
+
     await this.rentalsRepository.create(rental);
     await this.carsRepository.updateAvailable(rental.car_id, true);
+
     return rental;
   }
 }
