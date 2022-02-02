@@ -8,7 +8,7 @@ import { ListAvailableCarController } from '@modules/cars/useCases/listAvailable
 import { UploadCarImagesController } from '@modules/cars/useCases/uploadCarImages/UploadCarImagesController';
 
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
-// import { ensureIsAdmin } from '../middlewares/ensureIsAdmin';
+import { ensureIsAdmin } from '../middlewares/ensureIsAdmin';
 
 const createCarController = new CreateCarController();
 const listAvailableCarController = new ListAvailableCarController();
@@ -20,7 +20,7 @@ const uploadCars = multer(upload.upload('./tmp/cars'));
 carRouter.post(
   '/',
   ensureAuthenticated,
-  // ensureIsAdmin,
+  ensureIsAdmin,
   createCarController.handle
 );
 carRouter.post(
