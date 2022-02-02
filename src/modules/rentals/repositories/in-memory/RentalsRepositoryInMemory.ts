@@ -7,10 +7,24 @@ export class RentalsRepositoryInMemory implements IRentalsRepository {
   rentals: Rental[] = [];
 
   async create({
+    id,
+    total,
+    end_date,
     car_id,
     user_id,
     expected_return_date,
   }: ICreateRentalDTO): Promise<Rental> {
+    if (id) {
+      const rental = this.rentals.find((rental) => rental.id === id);
+
+      Object.assign(rental, {
+        total,
+        end_date,
+      });
+
+      return rental;
+    }
+
     const rental = new Rental();
     Object.assign(rental, {
       car_id,
@@ -30,5 +44,9 @@ export class RentalsRepositoryInMemory implements IRentalsRepository {
     return this.rentals.find(
       (rental) => rental.user_id === user_id && !rental.end_date
     );
+  }
+
+  async findById(id: string): Promise<Rental> {
+    return this.rentals.find((rental) => rental.id === id);
   }
 }
