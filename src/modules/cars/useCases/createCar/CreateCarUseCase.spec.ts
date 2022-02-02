@@ -1,6 +1,6 @@
 import { Category } from '@modules/cars/infra/typeorm/entities/Category';
 import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
-import { CreateRepositoryInMemory } from '@modules/cars/repositories/in-memory/CreateRepositoryInMemory';
+import { CategoriesRepositoryInMemory } from '@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
 import { CreateCarUseCase } from './CreateCarUseCase';
@@ -8,18 +8,18 @@ import { CreateCarUseCase } from './CreateCarUseCase';
 describe('Create Car', () => {
   let createCarUseCase: CreateCarUseCase;
   let carsRepositoryInMemory: CarsRepositoryInMemory;
-  let categoryInMemory: CreateRepositoryInMemory;
+  let categoriesRepositoryInMemory: CategoriesRepositoryInMemory;
   let category: Category;
 
   beforeEach(async () => {
     carsRepositoryInMemory = new CarsRepositoryInMemory();
-    categoryInMemory = new CreateRepositoryInMemory();
+    categoriesRepositoryInMemory = new CategoriesRepositoryInMemory();
     createCarUseCase = new CreateCarUseCase(
       carsRepositoryInMemory,
-      categoryInMemory
+      categoriesRepositoryInMemory
     );
 
-    category = await categoryInMemory.create({
+    category = await categoriesRepositoryInMemory.create({
       name: 'SUV',
       description: 'Top SUV',
     });

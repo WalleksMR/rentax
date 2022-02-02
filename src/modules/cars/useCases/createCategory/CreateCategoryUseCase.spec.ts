@@ -1,15 +1,17 @@
-import { CreateRepositoryInMemory } from '@modules/cars/repositories/in-memory/CreateRepositoryInMemory';
+import { CategoriesRepositoryInMemory } from '@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
 import { CreateCategoryUseCase } from './CreateCategoryUseCase';
 
 let createCategoryUseCase: CreateCategoryUseCase;
-let createRepositoryInMemory: CreateRepositoryInMemory;
+let categoriesRepositoryInMemory: CategoriesRepositoryInMemory;
 
 describe('Create Category', () => {
   beforeEach(() => {
-    createRepositoryInMemory = new CreateRepositoryInMemory();
-    createCategoryUseCase = new CreateCategoryUseCase(createRepositoryInMemory);
+    categoriesRepositoryInMemory = new CategoriesRepositoryInMemory();
+    createCategoryUseCase = new CreateCategoryUseCase(
+      categoriesRepositoryInMemory
+    );
   });
 
   it('should be able to create a new category', async () => {
