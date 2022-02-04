@@ -13,6 +13,8 @@ import { ISpecificationsRepository } from '@modules/cars/repositories/ISpecifica
 import { RentalsRepository } from '@modules/rentals/infra/typeorm/repositories/RentalsRepository';
 import { IRentalsRepository } from '@modules/rentals/repositories/IRentalsRepository';
 import '@shared/container/providers';
+import { IUsersTokenRepository } from '@modules/account/repositories/IUsersTokenRepository';
+import { UsersTokenRepository } from '@modules/account/infra/typeorm/repositories/UsersTokenRepository';
 
 // RentalsRepository
 container.registerSingleton<IRentalsRepository>(
@@ -45,4 +47,10 @@ container.registerSingleton<ICarsRepository>('CarsRepository', CarsRepository);
 container.registerSingleton<ICarsImageRepository>(
   'CarsImageRepository',
   CarsImageRepository
+);
+
+// UsersTokenRepository
+container.registerSingleton<IUsersTokenRepository>(
+  'UsersTokenRepository',
+  UsersTokenRepository
 );
