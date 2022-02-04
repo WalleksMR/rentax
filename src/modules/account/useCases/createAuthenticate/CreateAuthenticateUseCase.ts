@@ -4,6 +4,9 @@ import { inject, injectable } from 'tsyringe';
 
 import { IUsersRepository } from '@modules/account/repositories/IUsersRepository';
 import { AppError } from '@shared/errors/AppError';
+import auth from '@config/auth';
+import { IUsersTokenRepository } from '@modules/account/repositories/IUsersTokenRepository';
+import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider';
 
 interface IAuthenticateDTO {
   email: string;
@@ -18,14 +21,27 @@ type UserData = {
 type IRequest = {
   userToken: UserData;
   token: string;
+  refresh_token: string;
 };
 @injectable()
 class CreateAuthenticateUseCase {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository
+    private usersRepository: IUsersRepository,
+    @inject('UsersTokenRepository')
+    private usersTokenRepository: IUsersTokenRepository,
+    @inject('DayjsDateProvider')
+    private dateProvider: IDateProvider
   ) {}
   async execute({ email, password }: IAuthenticateDTO): Promise<IRequest> {
+    const {
+      expires_in_token,
+      secret_refresh_token,
+      secret_token,
+      expires_in_refresh_token,
+      expires_refresh_token_days,
+    } = auth;
+
     // Verify if exist user
     const user = await this.usersRepository.findByEmail(email);
     if (!user) {
@@ -43,12 +59,25 @@ class CreateAuthenticateUseCase {
       email: user.email,
     };
 
-    const token = sign({}, 'ignite', {
+    const token = sign({}, secret_token, {
       subject: user.id,
-      expiresIn: '1d',
+      expiresIn: expires_in_token,
     });
 
-    return { userToken, token };
+    const refresh_token = sign({ email }, secret_refresh_token, {
+      subject: user.id,
+      expiresIn: expires_in_refresh_token,
+    });
+
+    const expires_date = this.dateProvider.addDays(expires_refresh_token_days);
+
+    await this.usersTokenRepository.create({
+      user_id: user.id,
+      refresh_token,
+      expires_date,
+    });
+
+    return { token, userToken, refresh_token };
   }
 }
 
