@@ -33,4 +33,12 @@ describe('Send Forgot Password Controller', () => {
     });
     expect(responseMail.statusCode).toBe(200);
   }, 10000);
+
+  it('should not be able send e-mail if user does not exists', async () => {
+    const responseMail = await request(app).post('/password/forgot').send({
+      email: 'false@rentx.com.br',
+    });
+    expect(responseMail.status).toBe(400);
+    expect(responseMail.body.message).toBe('User does not exists');
+  });
 });
