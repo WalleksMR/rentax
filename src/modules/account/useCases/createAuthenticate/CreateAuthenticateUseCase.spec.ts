@@ -31,12 +31,7 @@ describe('Create Authenticate User', () => {
       dateProvider
     );
 
-    await createUserUseCase.execute({
-      driver_license: userMoke.driver_license,
-      email: userMoke.email,
-      password: userMoke.password,
-      name: userMoke.name,
-    });
+    await createUserUseCase.execute(userMoke);
   });
 
   it('should be able to authenticate an user', async () => {
