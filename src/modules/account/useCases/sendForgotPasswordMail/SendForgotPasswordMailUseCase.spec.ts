@@ -43,6 +43,6 @@ describe('Send Forgot Password', () => {
   it('should not be able send e-mail if the user not exists', () => {
     expect(async () => {
       await sendForgotPassword.execute('false@email.com');
-    }).rejects.toBe(new AppError('User does not exists'));
+    }).rejects.toBeInstanceOf(AppError);
   });
 });
