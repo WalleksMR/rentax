@@ -1,43 +1,53 @@
 import { ICreateUserDTO } from '@modules/account/dto/ICreateUserDTO';
 import { UsersRepositoryInMemory } from '@modules/account/repositories/in-memory/UsersRepositoryInMemory';
+import { UsersTokenRepositoryInMemory } from '@modules/account/repositories/in-memory/UsersTokenRepositoryInMemory';
+import { DayjsDateProvider } from '@shared/container/providers/DateProvider/implementations/DayjsDateProvider';
 import { AppError } from '@shared/errors/AppError';
-
 import { CreateUserUseCase } from '../createUser/CreateUserUseCase';
+
 import { CreateAuthenticateUseCase } from './CreateAuthenticateUseCase';
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 let createAuthenticateUseCase: CreateAuthenticateUseCase;
 let createUserUseCase: CreateUserUseCase;
+let usersTokenRepository: UsersTokenRepositoryInMemory;
+let dateProvider: DayjsDateProvider;
+
 describe('Create Authenticate User', () => {
-  beforeEach(() => {
+  const userMoke: ICreateUserDTO = {
+    driver_license: '002992',
+    email: 'user@test.com',
+    name: 'user test',
+    password: '12345',
+  };
+  beforeEach(async () => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
+    usersTokenRepository = new UsersTokenRepositoryInMemory();
+    dateProvider = new DayjsDateProvider();
     createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
     createAuthenticateUseCase = new CreateAuthenticateUseCase(
-      usersRepositoryInMemory
+      usersRepositoryInMemory,
+      usersTokenRepository,
+      dateProvider
     );
+
+    await createUserUseCase.execute({
+      driver_license: userMoke.driver_license,
+      email: userMoke.email,
+      password: userMoke.password,
+      name: userMoke.name,
+    });
   });
 
   it('should be able to authenticate an user', async () => {
-    const user: ICreateUserDTO = {
-      driver_license: '002992',
-      email: 'user@test.com',
-      name: 'user test',
-      password: '1234',
-    };
-
-    await createUserUseCase.execute({
-      driver_license: user.driver_license,
-      email: user.email,
-      password: user.password,
-      name: user.name,
-    });
-
     const result = await createAuthenticateUseCase.execute({
-      email: user.email,
-      password: user.password,
+      email: userMoke.email,
+      password: userMoke.password,
     });
 
     expect(result).toHaveProperty('token');
+    expect(result).toHaveProperty('userToken');
+    expect(result).toHaveProperty('refresh_token');
   });
 
   it('should not be able to authenticate an nonexistent user', () => {
@@ -51,25 +61,10 @@ describe('Create Authenticate User', () => {
 
   it('should not be able to authenticate with incorrect password', () => {
     expect(async () => {
-      const user: ICreateUserDTO = {
-        driver_license: '002992',
-        email: 'user@test.com',
-        name: 'user test',
-        password: '1234',
-      };
-
-      await createUserUseCase.execute({
-        driver_license: user.driver_license,
-        email: user.email,
-        password: user.password,
-        name: user.name,
-      });
-
-      const result = await createAuthenticateUseCase.execute({
-        email: user.email,
+      await createAuthenticateUseCase.execute({
+        email: userMoke.email,
         password: 'passwordIncorrect',
       });
-      console.log(result);
     }).rejects.toBeInstanceOf(AppError);
   });
 });
