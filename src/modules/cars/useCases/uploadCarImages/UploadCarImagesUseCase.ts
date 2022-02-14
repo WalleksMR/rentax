@@ -9,18 +9,20 @@ import { inject, injectable } from 'tsyringe';
 import { CarImage } from '@modules/cars/infra/typeorm/entities/CarImage';
 import { ICarsImageRepository } from '@modules/cars/repositories/ICarsImageRepository';
 import { AppError } from '@shared/errors/AppError';
+import { IStorageProvider } from '@shared/container/providers/StorageProvider/IStorageProvider';
 
 interface IRequest {
   car_id: string;
   image_name: string[];
-  paths?: string[];
 }
 
 @injectable()
 class UploadCarImagesUseCase {
   constructor(
     @inject('CarsImageRepository')
-    private carsImageRepository: ICarsImageRepository
+    private carsImageRepository: ICarsImageRepository,
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider
   ) {}
 
   async loadedImages({ car_id, image_name }: IRequest): Promise<CarImage[]> {
@@ -34,14 +36,17 @@ class UploadCarImagesUseCase {
       // eslint-disable-next-line no-await-in-loop
       const element = await carsImages[index];
       resultCars.push(element);
-      console.log('finished');
+      console.log('Img uploaded' + element.image_name);
     }
 
     return resultCars;
   }
-  async execute({ car_id, image_name, paths }: IRequest): Promise<CarImage[]> {
+  async execute({ car_id, image_name }: IRequest): Promise<CarImage[]> {
     // Delete file of directory
-    paths.map((path) => fs.promises.unlink(path));
+    image_name.map(async (img) => {
+      await this.storageProvider.save(img, 'cars');
+      await this.storageProvider.delete(img, 'cars');
+    });
 
     const limitCarByUser = await this.carsImageRepository.findByIdCar(car_id);
     if (limitCarByUser.length >= 10) {
