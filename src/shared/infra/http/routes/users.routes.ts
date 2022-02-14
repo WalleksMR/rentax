@@ -14,7 +14,7 @@ const createUserController = new CreateUserController();
 const listUserController = new ListUserController();
 const updateUserAvatarController = new UpdateUserAvatarController();
 
-const uploadAvatar = multer(upload.upload('./tmp/avatar'));
+const uploadAvatar = multer(upload);
 
 usersRouter.post('/', createUserController.handle);
 usersRouter.get('/', listUserController.handle);
