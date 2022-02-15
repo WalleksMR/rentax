@@ -45,7 +45,6 @@ class UploadCarImagesUseCase {
     // Delete file of directory
     image_name.map(async (img) => {
       await this.storageProvider.save(img, 'cars');
-      await this.storageProvider.delete(img, 'cars');
     });
 
     const limitCarByUser = await this.carsImageRepository.findByIdCar(car_id);
