@@ -7,17 +7,20 @@ import { ListUserController } from '@modules/account/useCases/listUser/ListUserC
 import { UpdateUserAvatarController } from '@modules/account/useCases/updateUserAvatar/UpdateUserAvatarController';
 
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
+import { ProfileUserController } from '@modules/account/useCases/profileUserUseCase/ProfileUserController';
 
 const usersRouter = Router();
 
 const createUserController = new CreateUserController();
 const listUserController = new ListUserController();
+const profileUserController = new ProfileUserController();
 const updateUserAvatarController = new UpdateUserAvatarController();
 
 const uploadAvatar = multer(upload);
 
 usersRouter.post('/', createUserController.handle);
 usersRouter.get('/', listUserController.handle);
+usersRouter.get('/profile', ensureAuthenticated, profileUserController.handle);
 usersRouter.patch(
   '/avatar',
   ensureAuthenticated,
