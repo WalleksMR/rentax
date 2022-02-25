@@ -12,7 +12,7 @@ import createConnection from '@shared/infra/typeorm';
 
 import { routes } from './routes';
 
-createConnection('database');
+createConnection();
 const app = express();
 app.use(cors());
 
