@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   type: process.env.DB_CONNECTION,
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -6,9 +6,9 @@ export default {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   synchronize: false,
-  migrations: ['./src/shared/**/migrations/*.ts'],
-  entities: ['src/modules/**/entities/*.ts'],
+  migrations: [process.env.DB_MIGRATIONS],
+  entities: [process.env.DB_ENTITIES],
   cli: {
-    migrationsDir: './src/shared/infra/typeorm/migrations',
+    migrationsDir: process.env.DB_MIGRATIONSDIR,
   },
 };
