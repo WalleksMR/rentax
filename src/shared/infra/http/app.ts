@@ -9,11 +9,13 @@ import '@shared/container';
 
 import { AppError } from '@shared/errors/AppError';
 import createConnection from '@shared/infra/typeorm';
+import rateLimiter from './middlewares/rateLimiter';
 
 import { routes } from './routes';
 
 createConnection();
 const app = express();
+app.use(rateLimiter);
 app.use(cors());
 
 app.use(express.json());
