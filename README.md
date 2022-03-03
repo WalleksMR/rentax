@@ -105,6 +105,13 @@ $ yarn dev
 # Good Job👏, application is running!
 ```
 
+## Run the tests
+
+```bash
+# To run the tests, you need create a new database called rentx_test, and after run the command below
+$ yarn test
+```
+
 ## Functional Requirement
 
 In software engineering and system engineering, a functional requirement defines a function of a system or its component, where a function is defcribed as a specification of behavior between inputs and outputs. [FuncionalRequirement](./FuncionalRequirement.md)
