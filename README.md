@@ -112,3 +112,11 @@ In software engineering and system engineering, a functional requirement defines
 ## Documentation API
 
 Access the router **http:localhost:3333/api-docs**
+
+## 📝 Licença
+
+Este projeto está licenciado sob a licença MIT - Veja [Licença](LICENSE.md) para mais detalhes.
+
+---
+
+Made with ❤️ &nbsp;by Walleks Miranda 👋 &nbsp;[See my Linkedin](https://www.linkedin.com/in/walleks-r-miranda-b291bb1aa/)
