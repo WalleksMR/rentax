@@ -108,7 +108,8 @@ $ yarn dev
 ## Run the tests
 
 ```bash
-# To run the tests, you need create a new database called rentx_test, and after run the command below
+# To run the tests, you need create a new database called rentx_test
+# and after run the command below
 $ yarn test
 ```
 
